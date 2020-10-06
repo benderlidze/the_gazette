@@ -31,7 +31,10 @@ function initMap() {
             lat: Number(latitude),
             lng: Number(longitude)
         },
-        gestureHandling: 'greedy'
+        gestureHandling: 'greedy',
+         mapTypeControlOptions: {
+            mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN]
+          },
     });
 
     var infowindow = new google.maps.InfoWindow();
