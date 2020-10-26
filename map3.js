@@ -163,10 +163,42 @@ function initMap() {
                 return marker;
             });
 
-            markerCluster = new MarkerClusterer(map, markers, {
-                imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m',
-                maxZoom: 11,
-            });
+
+             var mcOptions = {
+              styles: [{
+                  height: 53,
+                  url: "https://raw.githubusercontent.com/googlearchive/js-marker-clusterer/gh-pages/images/m1.png",
+                  width: 53
+                },
+                {
+                  height: 56,
+                  url: "https://raw.githubusercontent.com/googlearchive/js-marker-clusterer/gh-pages/images/m2.png",
+                  width: 56
+                },
+                {
+                  height: 66,
+                  url: "https://raw.githubusercontent.com/googlearchive/js-marker-clusterer/gh-pages/images/m3.png",
+                  width: 66
+                },
+                {
+                  height: 78,
+                  url: "https://raw.githubusercontent.com/googlearchive/js-marker-clusterer/gh-pages/images/m4.png",
+                  width: 78
+                },
+                {
+                  height: 90,
+                  url: "https://raw.githubusercontent.com/googlearchive/js-marker-clusterer/gh-pages/images/m5.png",
+                  width: 90
+                }
+              ]
+            }
+            
+            //init clusterer with your options
+            markerCluster = new MarkerClusterer(map, markers, mcOptions);
+            // markerCluster = new MarkerClusterer(map, markers, {
+            //     imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m',
+            //     maxZoom: 11,
+            // });
 
             // filters part 
             const filtersUnique = [...new Map(filters.map(item => [item['type'], item])).values()]
