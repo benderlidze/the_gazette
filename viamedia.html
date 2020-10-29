@@ -142,6 +142,36 @@
             height: 40px;
             margin: 5px;
         }
+
+        .column {
+            column-count: 3
+        }
+
+        #close{
+                display: none;
+            }
+        /* On screens that are 992px or less, set the background color to blue */
+        @media screen and (max-width: 992px) {
+            .column {
+                column-count: 1
+            }
+
+            .dropdown-content {
+                width: 100%;
+            }
+
+            .dropdown {
+                width: 100%;
+            }
+
+            label{
+                margin-bottom: .1rem;
+            }
+            
+            #close{
+                display: inline;
+            }
+        }
     </style>
 </head>
 
@@ -159,7 +189,6 @@
                 <h1 id="campaign_name_title">Campaign</h1>
             </div>
         </div>
-
 
         <div class="row top-buffer">
             <div class="col-xl-12 ">

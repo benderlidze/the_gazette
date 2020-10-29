@@ -34,14 +34,10 @@ function initMap() {
         gestureHandling: 'greedy',
          mapTypeControlOptions: {
             mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN]
-          },
+          }
     });
 
     var infowindow = new google.maps.InfoWindow();
-
-
-   
-
 
 
     full_url = "https://campaign-maps.s3.amazonaws.com/" + campaing_name + "/" + campaing_name + "-inventory.geojson"
@@ -163,8 +159,7 @@ function initMap() {
                 return marker;
             });
 
-
-             var mcOptions = {
+          var mcOptions = {
               styles: [{
                   height: 53,
                   url: "https://raw.githubusercontent.com/googlearchive/js-marker-clusterer/gh-pages/images/m1.png",
@@ -195,14 +190,15 @@ function initMap() {
             
             //init clusterer with your options
             markerCluster = new MarkerClusterer(map, markers, mcOptions);
-            // markerCluster = new MarkerClusterer(map, markers, {
-            //     imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m',
-            //     maxZoom: 11,
-            // });
-
+        /*
+            markerCluster = new MarkerClusterer(map, markers, {
+                imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m',
+                maxZoom: 11,
+            });
+*/
             // filters part 
             const filtersUnique = [...new Map(filters.map(item => [item['type'], item])).values()]
-            console.log('filtersUnique', filtersUnique);
+            // console.log('filtersUnique', filtersUnique);
 
             const divFilters = filtersUnique.sort(function (a, b) {
                 if (a.type < b.type) { return -1; }
@@ -213,11 +209,12 @@ function initMap() {
                     return `<div style="display: inline-block; width: 100%;"><label for="${i.type}" ><input type="checkbox" class="filtersSelected" id="${i.type}" checked><img src="${i.icon}" style="width:25px;padding:5px;"> ${i.type}</label></div>`
                 }).join(" ")
 
-            filter.innerHTML = `<button class="dropbtn">Venue Types</button>
+            filter.innerHTML = `<button class="dropbtn" id="openFilters">Filter Venue Types</button>
                           <div class="dropdown-content">
                             <button id="selectAll">Select all</button>
                             <button id="clearAll">Clear all</button>
-                            <div style="column-count:3 ">
+                            <button id="close">CLOSE</button>
+                            <div class="column">
                             ${divFilters}
                             <div style="clear:both"></div>
                             </div>
@@ -229,16 +226,16 @@ function initMap() {
 
         //filters 
         if (e.target.type === "checkbox" && e.target.classList.contains("filtersSelected")) {
-            console.log(e.target);
+            // console.log(e.target);
             const s = Array.from(document.querySelectorAll("input.filtersSelected:checked"));
-            console.log(s);
+            // console.log(s);
             const checked = s.map(i => i.id)
-            console.log(checked);
+            // console.log(checked);
             markerCluster.clearMarkers()
             markers.map(i => {
                 i.setMap(null);
                 if (checked.includes(i.location_type)) {
-                    console.log(111);
+                    // console.log(111);
                     i.setMap(map)
                 }
             })
@@ -263,6 +260,24 @@ function initMap() {
             markers.map(i => {
                 i.setMap(null);
             })
+            return;
+        }
+        //clear all  button
+        if (e.target.id === "close") {
+            document.querySelector(".dropdown-content").style.display = "none"
+            return;
+        }
+        //clear all  button
+        if (e.target.id === "openFilters") {
+            document.querySelector(".dropdown-content").style.display = ""
+
+            // const s = document.querySelector(".dropdown-content").style.display
+            // if(s === ""){
+            //     document.querySelector(".dropdown-content").style.display = "none"
+            // }else{
+            //     document.querySelector(".dropdown-content").style.display = ""
+            // }
+
             return;
         }
     })
